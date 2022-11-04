@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { useState }  from 'react';
 import styles from '../styles/Home.module.css';
 import { v4 as uuidv4 } from "uuid";
+import {useForm} from "react-hook-form";
 
 
 
@@ -39,7 +40,15 @@ export default function Home() {
       return item;
     } );
     setItems(_items);
-  };
+  }
+
+  const handleEnter =(e) => {
+    e.preventDefault();
+    if(e.key == 'Enter'){
+      handleAdd();
+
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -59,9 +68,10 @@ export default function Home() {
         </p>
         <div>
           <form>
-            <input type='text' value={todoItem} 
-            onChange={(e) => setTodoItem(e.target.value)}></input>
-            <button type='button' onClick={handleAdd}>Add</button>
+            <input type='text' value={todoItem} onKeyDown={handleEnter} 
+            onChange={(e) => setTodoItem(e.target.value)} 
+            ></input>
+            <button type='button'>Add</button>
           </form>
           <div>
             <ul>
